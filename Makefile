@@ -45,9 +45,10 @@ LDFLAGS += --specs=nano.specs --specs=rdimon.specs
 LDFLAGS += -Wl,--gc-sections
 
 INCDIRS += \
-	inc \
-	inc/chip_15xx \
-	inc/chip_common \
+	lib/cmsis \
+	lib/lpc15xx \
+	lib/lpc15xx/chip_15xx \
+	lib/lpc15xx/chip_common \
 	src/adapter \
 	src/adapter/obd \
 	src/drv/lpc15xx \
