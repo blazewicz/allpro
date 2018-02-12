@@ -19,6 +19,7 @@ CFLAGS += $(ARCHFLAGS)
 CFLAGS += -std=gnu99 -Wall -Werror -MMD
 CFLAGS += -fshort-enums -ffunction-sections -fdata-sections
 CFLAGS += $(OPT)
+CFLAGS += $(DEFS)
 CFLAGS += $(INC)
 
 CXXFLAGS += $(ARCHFLAGS)
@@ -26,6 +27,7 @@ CXXFLAGS += -std=c++11 -Wall -MMD
 CXXFLAGS += -fshort-enums -ffunction-sections -fdata-sections
 CXXFLAGS += -fno-rtti -fno-exceptions -fno-threadsafe-statics
 CXXFLAGS += $(OPT)
+CXXFLAGS += $(DEFS)
 CXXFLAGS += $(INC)
 
 LDFLAGS += $(ARCHFLAGS)
