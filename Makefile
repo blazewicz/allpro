@@ -6,6 +6,8 @@ LD = $(CROSS)g++
 OBJCOPY = $(CROSS)objcopy
 SIZE = $(CROSS)size
 
+TARGET ?= LPC15XX
+
 ifeq ($(DEBUG), 1)
 BUILD = target/debug
 DEFS += -DDEBUG
@@ -46,21 +48,16 @@ LDFLAGS += -Wl,--gc-sections
 
 INCDIRS += \
 	lib/cmsis \
-	lib/lpc15xx \
-	lib/lpc15xx/chip_15xx \
-	lib/lpc15xx/chip_common \
 	src/adapter \
 	src/adapter/obd \
 	src/drv \
-	src/drv/lpc15xx \
 	src/util \
 
 INC = $(addprefix -I,$(INCDIRS))
 
 SRC_AS =
 
-SRC_C = \
-	src/system_LPC15xx.c \
+SRC_C =
 
 SRC_CXX = \
 	src/adapter/adapterconfig.cpp \
@@ -83,18 +80,16 @@ SRC_CXX = \
 	src/adapter/timeoutmgr.cpp \
 	src/cr_cpp_config.cpp \
 	src/cr_startup_lpc15xx.cpp \
-	src/drv/lpc15xx/AdcLPC15xx.cpp \
-	src/drv/lpc15xx/CanDriverLPC15xx.cpp \
-	src/drv/lpc15xx/CmdUartLPC15xx.cpp \
-	src/drv/lpc15xx/EcuUartLPC15xx.cpp \
-	src/drv/lpc15xx/GpioDrvLPC15xx.cpp \
-	src/drv/lpc15xx/AdptLEDLPC15xx.cpp \
-	src/drv/lpc15xx/PwmDriverLPC15xx.cpp \
-	src/drv/lpc15xx/SysutilityLPC15xx.cpp \
-	src/drv/lpc15xx/TimerLPC15xx.cpp \
 	src/util/algorithms.cpp \
 	src/util/canmsgbuffer.cpp \
 	src/util/lstring.cpp \
+
+
+ifeq ($(TARGET), LPC15XX)
+include lpc15xx.mk
+else
+$(error "unkown target")
+endif
 
 OBJ += $(addprefix $(BUILD)/,$(SRC_AS:.s=.o))
 OBJ += $(addprefix $(BUILD)/,$(SRC_C:.c=.o))
