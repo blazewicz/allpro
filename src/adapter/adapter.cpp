@@ -15,7 +15,7 @@
 #include <EcuUart.h>
 #include <PwmDriver.h>
 #include <AdcDriver.h>
-#include <led.h>
+#include <AdptLED.h>
 #include <adaptertypes.h>
 
 using namespace std;

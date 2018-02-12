@@ -8,7 +8,7 @@
 #include <cstdio>
 #include <adaptertypes.h>
 #include <CanDriver.h>
-#include <led.h>
+#include <AdptLED.h>
 #include "canhistory.h"
 #include "canmsgbuffer.h"
 #include "isocan.h"

@@ -88,7 +88,7 @@ SRC_CXX = \
 	src/drv/lpc15xx/CmdUartLPC15xx.cpp \
 	src/drv/lpc15xx/EcuUartLPC15xx.cpp \
 	src/drv/lpc15xx/GpioDrvLPC15xx.cpp \
-	src/drv/lpc15xx/led.cpp \
+	src/drv/lpc15xx/AdptLEDLPC15xx.cpp \
 	src/drv/lpc15xx/PwmDriverLPC15xx.cpp \
 	src/drv/lpc15xx/SysutilityLPC15xx.cpp \
 	src/drv/lpc15xx/TimerLPC15xx.cpp \

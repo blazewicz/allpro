@@ -8,7 +8,7 @@
 #include <Timer.h>
 #include <GpioDrv.h>
 #include <adaptertypes.h>
-#include "led.h"
+#include "AdptLED.h"
 
 const int TimerBlinkNum = 10; // The blink longevity
 const int TimerInteral  = 10; // 10ms
