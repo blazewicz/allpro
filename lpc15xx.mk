@@ -19,3 +19,4 @@ SRC_CXX += 	\
 	src/drv/lpc15xx/PwmDriverLPC15xx.cpp \
 	src/drv/lpc15xx/SysutilityLPC15xx.cpp \
 	src/drv/lpc15xx/TimerLPC15xx.cpp \
+	src/drv/lpc15xx/McuDriverLPC15xx.cpp \

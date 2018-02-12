@@ -7,8 +7,8 @@
 
 #include <lstring.h>
 #include <cctype>
-#include <LPC15xx.h>
 #include <Timer.h>
+#include <DriverDefs.h>
 #include <GpioDrv.h>
 #include <CmdUart.h>
 #include <CanDriver.h>
@@ -16,6 +16,7 @@
 #include <PwmDriver.h>
 #include <AdcDriver.h>
 #include <AdptLED.h>
+#include <McuDriver.h>
 #include <adaptertypes.h>
 
 using namespace std;
@@ -29,21 +30,7 @@ static CmdUart* glblUart;
  */
 static void SetAllRegisters()
 {
-    // Enable MRT timer
-    LPC_SYSCON->SYSAHBCLKCTRL1 |= (1 << 0);
-    LPC_SYSCON->PRESETCTRL1 &= ~(1 << 0);
-    
-    // Enable RIT timer
-    LPC_SYSCON->SYSAHBCLKCTRL1 |= (1 << 1);
-    LPC_SYSCON->PRESETCTRL1 &= ~(1 << 1);
-    
-    LPC_SYSCON->SYSAHBCLKCTRL0 |= (1 << 11); // MUX
-    LPC_SYSCON->SYSAHBCLKCTRL0 |= (1 << 12); // SVM
-    LPC_SYSCON->SYSAHBCLKCTRL0 |= (1 << 13); // IOCON
-    
-    // LPC I/O pins
-    LPC_SYSCON->SYSAHBCLKCTRL0 |= (1 << 14); // PIO0
-    
+    McuDriver::configure();
     CmdUart::configure();
     EcuUart::configure();
     CanDriver::configure();
@@ -114,14 +101,12 @@ static void AdapterRun()
         else {
             AdptCheckHeartBeat();
         }
-        __WFI(); // goto sleep
+        wfi(); // goto sleep
     }
 }
 
 int main(void)
 {
-    SystemCoreClockUpdate();
-    
     SetAllRegisters();
     AdapterRun();
 }

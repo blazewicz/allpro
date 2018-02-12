@@ -6,10 +6,11 @@
  */
 
 #include <climits>
-#include <LPC15xx.h>
 #include <lstring.h>
 #include <algorithms.h>
 #include <adaptertypes.h>
+
+#include "DriverDefs.h"
 
 using namespace std;
 using namespace util;
