@@ -51,6 +51,7 @@ INCDIRS += \
 	lib/lpc15xx/chip_common \
 	src/adapter \
 	src/adapter/obd \
+	src/drv \
 	src/drv/lpc15xx \
 	src/util \
 
