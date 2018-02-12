@@ -247,9 +247,9 @@ void J1939Adapter::processFrame(const CanMsgBuffer* msg)
  */
 void J1939Adapter::processRtsFrame(const CanMsgBuffer* msg)
 {
-	const int STR_LEN = 4;
+    const int STR_LEN = 5;
     char slen[STR_LEN];
-    sprintf(slen, "%.3X", static_cast<unsigned>(mgr_->size()));
+    sprintf(slen, "%.4X", mgr_->size());
     AdptSendReply(slen);
 }
 

@@ -28,7 +28,7 @@ public:
     bool isValidAck(const CanMsgBuffer* msg) const;
     bool rts(const CanMsgBuffer* msg);
     bool data(const CanMsgBuffer* msg);
-    uint32_t size() const { return size_; }
+    uint16_t size() const { return size_; }
 private:
     bool sendAck();
 
