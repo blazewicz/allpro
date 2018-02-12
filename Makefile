@@ -1,4 +1,5 @@
 CROSS = arm-none-eabi-
+AS = $(CROSS)gcc -c -x assembler-with-cpp
 CC = $(CROSS)gcc -c
 CXX = $(CROSS)g++ -c
 LD = $(CROSS)g++
@@ -18,6 +19,10 @@ endif
 ARCHFLAGS += -mcpu=cortex-m3
 
 DEFS += -D__NEWLIB__ -D__CODE_RED -DCORE_M3 -DCPP_USE_HEAP -D__LPC15XX__ -D__USE_CMSIS
+
+ASFLAGS += $(ARCHFLAGS)
+ASFLAGS += $(DEFS)
+ASFLAGS += $(INC)
 
 CFLAGS += $(ARCHFLAGS)
 CFLAGS += -std=gnu99 -Wall -Werror -MMD
@@ -49,6 +54,8 @@ INCDIRS += \
 	src/util \
 
 INC = $(addprefix -I,$(INCDIRS))
+
+SRC_AS =
 
 SRC_C = \
 	src/system_LPC15xx.c \
@@ -87,6 +94,7 @@ SRC_CXX = \
 	src/util/canmsgbuffer.cpp \
 	src/util/lstring.cpp \
 
+OBJ += $(addprefix $(BUILD)/,$(SRC_AS:.s=.o))
 OBJ += $(addprefix $(BUILD)/,$(SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/,$(SRC_CXX:.cpp=.o))
 OBJDIRS = $(sort $(dir $(OBJ)))
@@ -107,6 +115,10 @@ clean:
 $(OBJ): |$(OBJDIRS)
 $(OBJDIRS):
 	mkdir -p $@
+
+$(BUILD)/%.o: %.s
+	@$(AS) $(ASFLAGS) -o $@ $<
+	@echo AS $<
 
 $(BUILD)/%.o: %.c
 	@$(CC) $(CFLAGS) -o $@ $<
