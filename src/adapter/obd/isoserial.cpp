@@ -140,13 +140,13 @@ void IsoSerialAdapter::setProtocol(int protocol)
  * @param[in] p4timeout The P4 timeout
  * @return true if ok, false if wiring problems
  */
-bool IsoSerialAdapter::sendToEcu(const Ecumsg* msg, int p4Timeout)
+bool IsoSerialAdapter::sendToEcu(const Ecumsg* msg, uint32_t p4Timeout)
 {
     appendToHistory(msg); // Buffer dump
     
     TX_LED(1); // Turn the transmit LED on
 
-    for (int i = 0; i < msg->length(); i++) {
+    for (size_t i = 0; i < msg->length(); i++) {
         uart_->send(msg->data()[i]);
         
         // Get the echo byte, it takes 1.2ms
@@ -155,7 +155,7 @@ bool IsoSerialAdapter::sendToEcu(const Ecumsg* msg, int p4Timeout)
             return false;
         }    
         // Interbyte delay <P4 = [5-20ms]>
-        if (i < (msg->length() - 1)) {
+        if ((i+1) < msg->length()) {
             Delay1ms(p4Timeout);
         } 
     } 
@@ -172,7 +172,7 @@ bool IsoSerialAdapter::sendToEcu(const Ecumsg* msg, int p4Timeout)
  * @param[in] p2timeout The P2 timeout
  * @param[in] p1timeout The P1 timeout
  */
-void IsoSerialAdapter::receiveFromEcu(Ecumsg* msg, int maxLen, int p2Timeout, int p1Timeout)
+void IsoSerialAdapter::receiveFromEcu(Ecumsg* msg, uint32_t maxLen, uint32_t p2Timeout, uint32_t p1Timeout)
 {
     msg->length(0);
     
@@ -180,7 +180,7 @@ void IsoSerialAdapter::receiveFromEcu(Ecumsg* msg, int maxLen, int p2Timeout, in
     Timer* timer = Timer::instance(1);
     timer->start(p2Timeout);
     
-    for(int i = 0; i < maxLen; i++) { // Only retrieve maxLen bytes
+    for (uint32_t i = 0; i < maxLen; i++) { // Only retrieve maxLen bytes
         // Wait for data to be received
         while(!uart_->ready()) {
             if (timer->isExpired())
@@ -222,7 +222,7 @@ bool IsoSerialAdapter::ecuSlowInit()
     ch <<= 1;    // Shift to accommodate start bit
     ch |= 0x200; // Add stop bit
 
-    for (int i = 0; i < 10; i++) {
+    for (size_t i = 0; i < 10; i++) {
         uint8_t val = (ch & 0x01);
         uart_->setBit(val);
         Delay1ms(BIT_INTERVAL);
@@ -512,7 +512,7 @@ void IsoSerialAdapter::sendHeartBeat()
     }
 
     // Wait for multiply replies
-    for (int i = 0; ; i++) {            
+    for (size_t i = 0; ; i++) {
         receiveFromEcu(msg.get(), OBD_OUT_MSG_LEN, p2Timeout, P1_MAX_TIMEOUT);
         if (msg->length() == 0) {
             break; // Timeout

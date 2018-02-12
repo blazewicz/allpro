@@ -41,7 +41,7 @@ void PwmAdapter::open()
  */
 bool PwmAdapter::sendByte(uint8_t val)
 {
-    for (int i = 0; i < 8; i++) {
+    for (size_t i = 0; i < 8; i++) {
         if (val & 0x80) {
             // Send "1"
             driver_->sendPulsePwm(TP1_TX_NOM, TP3_TX_NOM-TP1_TX_NOM);
@@ -75,7 +75,7 @@ void PwmAdapter::sendSof()
 int PwmAdapter::receiveByte(uint8_t& val)
 {
     val = 0;
-    for (int i = 0; i < 8; i++) {
+    for (size_t i = 0; i < 8; i++) {
         val = val << 1;
         uint32_t pulse = driver_->wait4BusPulsePwm();
         if (pulse == 0)
@@ -117,7 +117,7 @@ int PwmAdapter::sendToEcu(const Ecumsg* msg)
     
     sendSof();
     
-    for (int i = 0; i < msg->length(); i++) {
+    for (size_t i = 0; i < msg->length(); i++) {
         if (!sendByte(msg->data()[i])) {
             TX_LED(false); // Turn the transmit LED off
             driver_->stop();

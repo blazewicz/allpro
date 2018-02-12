@@ -118,14 +118,14 @@ void KWordsToString(const uint8_t* kw, string& str)
  **/
 uint32_t to_bytes(const string& str, uint8_t* bytes)
 {
-    int len = str.length();
+    size_t len = str.length();
     
     if ((len % 2) != 0) {
         len--; // Skip the last digit
     }
     
-    int j = 0;
-    for (int i = 0; i < len / 2; i++) {
+    size_t j = 0;
+    for (size_t i = 0; i < len / 2; i++) {
         uint32_t hexValue = stoul(str.substr(j, 2), 0, 16);
         if (hexValue == ULONG_MAX)
             return 0;
@@ -144,7 +144,7 @@ uint32_t to_bytes(const string& str, uint8_t* bytes)
 void to_ascii(const uint8_t* bytes, uint32_t length, string& str)
 {
     Spacer spacer(str);
-    for (int i = 0; i < length; i++) {
+    for (size_t i = 0; i < length; i++) {
         str += to_ascii(bytes[i] >> 4);
         str += to_ascii(bytes[i] & 0x0F);
         spacer.space();
@@ -175,7 +175,7 @@ void AutoReceiveParse(const string& str, uint32_t& filter_, uint32_t& mask_)
 {
     uint32_t filter = 0, mask = 0;
     
-    for (int i = 0; i < str.length(); i++) {
+    for (size_t i = 0; i < str.length(); i++) {
         if (str[i] == 'X') {
             mask   &= 0xFFFFFFF0;
             filter &= 0xFFFFFFF0;
@@ -210,10 +210,9 @@ void AutoReceiveParse(const string& str, uint32_t& filter_, uint32_t& mask_)
  **/
 void ReverseBytes(uint8_t* bytes, uint32_t length)
 {
-    int end = length - 1;
-    for (int i = 0; i < end; i++) {
+    for (size_t i = 0; i < length / 2; i++) {
         uint8_t tmp = bytes[i];
-        bytes[i] = bytes[end];
-        bytes[end--] = tmp;
+        bytes[i] = bytes[length - i - 1];
+        bytes[length - i - 1] = tmp;
     }
 }

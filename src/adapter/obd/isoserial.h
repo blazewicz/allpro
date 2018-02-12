@@ -39,8 +39,8 @@ private:
     void setKeepAlive();
     void checkP3Timeout();
     bool isKeepAlive();
-    bool sendToEcu(const Ecumsg* msg, int p4Timeout);
-    void receiveFromEcu(Ecumsg* msg, int maxLen, int p2Timeout, int p1Timeout);
+    bool sendToEcu(const Ecumsg* msg, uint32_t p4Timeout);
+    void receiveFromEcu(Ecumsg* msg, uint32_t maxLen, uint32_t p2Timeout, uint32_t p1Timeout);
     bool checkResponsePending(const Ecumsg* msg);
     void configureProperties();
     int  onConnectEcuSlow(int protocol);

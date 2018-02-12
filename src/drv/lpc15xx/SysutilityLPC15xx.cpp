@@ -38,10 +38,10 @@ static string UIDToString(uint32_t uid[3])
 {
     string str(30);
 
-    for (int j = 0; j < 3; j++) {
+    for (size_t j = 0; j < 3; j++) {
         IntAggregate value(uid[j]);
 
-        for (int i = 3; i >= 0; i--) {
+        for (size_t i = 3; i >= 0; i--) {
             str += to_ascii(value.bvalue[i] >> 4);
             str += to_ascii(value.bvalue[i] & 0x0F);
         }

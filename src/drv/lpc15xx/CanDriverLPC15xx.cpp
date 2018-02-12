@@ -261,7 +261,7 @@ void CanDriver::clearFilters()
 void CanDriver::clearData()
 {
     CAN_MSG_OBJ msg;
-    for (int i = 1; i < 32; i++) {
+    for (size_t i = 1; i < 32; i++) {
         msg.dlc = msg.mode_id = 0;
         msg.msgobj = i;
         LPC_CAND_API->hwCAN_MsgReceive(CanDriver::handle_, &msg);
@@ -296,7 +296,7 @@ bool CanDriver::read(CanMsgBuffer* buff)
     msg.mode_id = 0xFFFFFFFF;
     msg.dlc = 0;
     uint32_t mask = msgBitMask;
-    for (int i = 1; i < 32; i++) {
+    for (size_t i = 1; i < 32; i++) {
         uint32_t val = 1 << i;
         if (val & mask) {
             msgBitMask &= ~val;

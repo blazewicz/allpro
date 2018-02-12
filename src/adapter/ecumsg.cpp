@@ -175,7 +175,7 @@ void Ecumsg::__removeHeader(uint32_t headerLen)
 void Ecumsg::__isoAddChecksum()
 {
     uint8_t sum { 0 };
-    for (int i = 0; i < length_; i++) {
+    for (size_t i = 0; i < length_; i++) {
         sum += data_[i];
     }
     data_[length_++] = sum;

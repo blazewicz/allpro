@@ -15,7 +15,7 @@
 using namespace util;
 
 uint8_t ProtocolAdapter::history_[];
-int     ProtocolAdapter::historyPos_;
+size_t ProtocolAdapter::historyPos_;
 
 /**
  * Constructs ProtocolAdater
@@ -110,7 +110,7 @@ void ProtocolAdapter::appendToHistory(const Ecumsg* msg)
  */
 void ProtocolAdapter::dumpBuffer()
 {
-    for (int i = 0; i < sizeof(history_); i += ITEM_LEN) {
+    for (size_t i = 0; i < sizeof(history_); i += ITEM_LEN) {
         string str;
         to_ascii(history_ + i, ITEM_LEN, str);
         AdptSendReply(str);

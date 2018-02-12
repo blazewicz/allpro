@@ -86,9 +86,9 @@ protected:
     AdapterConfig* config_;
     int            sts_;
 private:
-    const static int HISTORY_LEN = 256;
-    const static int ITEM_LEN    = 16;
-    static int     historyPos_;
+    const static size_t HISTORY_LEN = 256;
+    const static size_t ITEM_LEN    = 16;
+    static size_t historyPos_;
     static uint8_t history_[HISTORY_LEN];
 };
 

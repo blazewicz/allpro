@@ -54,7 +54,7 @@ int VpwAdapter::sendToEcu(const Ecumsg* msg)
     // SOF pulse
     driver_->sendSofVpw(TV3_TX_NOM); // 200us
   
-    for (int i = 0; i < msg->length(); i++) {
+    for (size_t i = 0; i < msg->length(); i++) {
         uint8_t ch = msg->data()[i];  // sent next byte in buffer
         int bits = 8;
 
