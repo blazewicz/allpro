@@ -219,7 +219,7 @@ uint32_t to_bytes(const util::string& str, uint8_t* bytes);
 void to_ascii(const uint8_t* bytes, uint32_t length, util::string& str);
 
 // LEDs
-#define TX_LED(val) GPIOPinWrite(TX_LED_PORT, TX_LED_NUM, (~val) & 0x1)
-#define RX_LED(val) GPIOPinWrite(RX_LED_PORT, RX_LED_NUM, (~val) & 0x1)
+#define TX_LED(val) GPIOPinWrite(TX_LED_PORT, TX_LED_NUM, (val) ? 1 : 0)
+#define RX_LED(val) GPIOPinWrite(RX_LED_PORT, RX_LED_NUM, (val) ? 1 : 0)
 
 #endif //__ADAPTER_TYPES_H__
