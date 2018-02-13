@@ -9,7 +9,7 @@ INCDIRS += \
 	src/drv/lpc15xx \
 
 SRC_C += \
-	src/system_LPC15xx.c \
+	lib/lpc15xx/system_LPC15xx.c \
 
 SRC_CXX += 	\
 	src/drv/lpc15xx/AdcLPC15xx.cpp \
