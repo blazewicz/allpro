@@ -7,13 +7,17 @@ SIZE = $(CROSS)size
 
 ifeq ($(DEBUG), 1)
 BUILD = target/debug
+DEFS += -DDEBUG
 OPT = -O0 -g
 else
 BUILD = target/release
+DEFS += -DNDEBUG
 OPT = -Os
 endif
 
 ARCHFLAGS += -mcpu=cortex-m3
+
+DEFS += -D__NEWLIB__ -D__CODE_RED -DCORE_M3 -DCPP_USE_HEAP -D__LPC15XX__ -D__USE_CMSIS
 
 CFLAGS += $(ARCHFLAGS)
 CFLAGS += -std=gnu99 -Wall -Werror -MMD
