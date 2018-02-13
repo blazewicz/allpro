@@ -1,5 +1,7 @@
 ARCHFLAGS += -mcpu=cortex-m3
 
+DEFS += -D__CODE_RED -DCORE_M3 -DCPP_USE_HEAP -D__LPC15XX__ -D__USE_CMSIS
+
 INCDIRS += \
 	lib/lpc15xx \
 	lib/lpc15xx/chip_15xx \
